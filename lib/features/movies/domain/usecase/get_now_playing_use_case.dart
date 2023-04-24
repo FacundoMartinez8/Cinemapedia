@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 class GetNowMoviePlayingUseCase extends UseCaseBase<List<Movie>, int> {
   final MovieRepositoryBase repository;
 
-  GetNowMoviePlayingUseCase(this.repository);
+  GetNowMoviePlayingUseCase({required this.repository});
 
   @override
   Future<Either<Failure, List<Movie>>> call(int) {

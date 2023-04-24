@@ -22,7 +22,7 @@ class MovieModel extends Movie {
     return MovieModel(
       adult: map['adult'] ?? false,
       backdropPath: map['{$imagePath}backdrop_path'] ?? '',
-      genreIds: map['genre_ids'] ?? [],
+      genreIds: List<int>.from(map['genre_ids'].map((x) => x)),
       id: map['id'] ?? 0,
       originalLanguage: map['original_language'] ?? '',
       originalTitle: map['original_title'] ?? '',
