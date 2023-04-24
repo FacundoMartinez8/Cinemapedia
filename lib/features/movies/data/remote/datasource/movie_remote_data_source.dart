@@ -6,13 +6,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 abstract class MovieRemoteDataSourceBase {
   final HttpServiceBase http;
 
-  MovieRemoteDataSourceBase(this.http);
+  MovieRemoteDataSourceBase({required this.http});
 
   Future<List<Movie>> getMovieNowPlaying(int);
 }
 
 class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
-  MovieRemoteDataSource(super.http);
+  //https://api.themoviedb.org/3/movie/now_playing?api_key=47728022501f30daa62f7eaf9fccf92d&language=es-MX
+  MovieRemoteDataSource({required super.http});
   String baseUrl = 'https://api.themoviedb.org/3';
   String? API_KEY = dotenv.env['THE_MOVIE_DB_KEY'];
   String language = '&language=es-MX';

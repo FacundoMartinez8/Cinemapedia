@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cinemapedia/core/failures/failure.dart';
+import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:cinemapedia/features/movies/domain/usecase/get_now_playing_use_case.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,8 +21,10 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     ActionGetMovies event,
     Emitter<MovieState> emit,
   ) async {
-    emit(OnLoadingMovie());
-    final result = await getNowMoviePlaying(event.page);
+    //emit(OnLoadingMovie());
+    print("llego antes");
+    final result = await getNowMoviePlaying(event.noParams);
+    print("llego desp");
 
     result.fold((l) => emit(OnFaileruMovie(failure: l)),
         (r) => emit(OnLoaderMovies(movies: r)));

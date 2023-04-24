@@ -1,3 +1,4 @@
+import 'package:cinemapedia/core/service/dependecies_services.dart';
 import 'package:cinemapedia/core/widgets/generic_failure_widget.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
 import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
@@ -11,11 +12,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<MovieBloc, MovieState>(
+    final bloc = getIt<MovieBloc>();
+
+    return Scaffold(
+        body: BlocBuilder<MovieBloc, MovieState>(
+      bloc: bloc,
       builder: (context, state) {
         if (state is OnLoadingMovie) {
           return const LoadingWidget();
         } else if (state is OnLoaderMovies) {
+          print('hola');
           final movies = state.movies;
           return ListView.builder(
             itemCount: movies.length,

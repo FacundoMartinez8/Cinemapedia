@@ -4,6 +4,6 @@ part of 'movies_bloc.dart';
 abstract class MovieEvent {}
 
 class ActionGetMovies extends MovieEvent {
-  final int page;
-  ActionGetMovies({required this.page});
+  final NoParams noParams;
+  ActionGetMovies(this.noParams);
 }

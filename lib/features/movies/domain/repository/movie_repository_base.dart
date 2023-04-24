@@ -6,6 +6,6 @@ import 'package:dartz/dartz.dart';
 abstract class MovieRepositoryBase {
   final MovieRemoteDataSourceBase remote;
 
-  MovieRepositoryBase(this.remote);
-  Future<Either<Failure, List<Movie>>> getNowMoviePlaying(int);
+  MovieRepositoryBase({required this.remote});
+  Future<Either<Failure, List<Movie>>> getNowMoviePlaying();
 }
