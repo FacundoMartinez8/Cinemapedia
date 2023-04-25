@@ -9,6 +9,7 @@ abstract class MovieRemoteDataSourceBase {
   MovieRemoteDataSourceBase({required this.http});
 
   Future<List<Movie>> getMovieNowPlaying(int);
+  Future<List<Movie>> getPopularMovie();
 }
 
 class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
@@ -20,10 +21,22 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
 
   @override
   Future<List<Movie>> getMovieNowPlaying(int) async {
+    print('pasa');
+
     final result = await http.get(
       url: '$baseUrl/movie/now_playing?api_key=$API_KEY$language',
     );
+    print('no pasa');
+    print(result);
+    return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
+  }
 
+  @override
+  Future<List<Movie>> getPopularMovie() async {
+    //https://api.themoviedb.org/3/movie/popular?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1
+    final result = await http.get(
+      url: '$baseUrl/movie/popular?api_key=$API_KEY$language',
+    );
     return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
   }
 }

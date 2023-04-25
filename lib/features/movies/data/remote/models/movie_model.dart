@@ -19,10 +19,11 @@ class MovieModel extends Movie {
 
   factory MovieModel.fromJson(Map<String, dynamic> map) {
     const imagePath = 'https://image.tmdb.org/t/p/w500';
+
     return MovieModel(
       adult: map['adult'] ?? false,
       backdropPath: map['{$imagePath}backdrop_path'] ?? '',
-      genreIds: map['genre_ids'] ?? [],
+      genreIds: List<int>.from(map['genre_ids'].map((x) => x)) ?? [],
       id: map['id'] ?? 0,
       originalLanguage: map['original_language'] ?? '',
       originalTitle: map['original_title'] ?? '',

@@ -21,4 +21,7 @@ class MovieRepository extends MovieRepositoryBase {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getPopularMovie() {}
 }
