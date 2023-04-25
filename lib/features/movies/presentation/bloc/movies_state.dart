@@ -14,3 +14,13 @@ class OnFaileruMovie extends MovieState {
   final Failure failure;
   OnFaileruMovie({required this.failure});
 }
+
+class OnLoaderPopularMovies extends MovieState {
+  final List<Movie> movies;
+  OnLoaderPopularMovies({required this.movies});
+}
+
+class OnFaileruPopularMovie extends MovieState {
+  final Failure failure;
+  OnFaileruPopularMovie({required this.failure});
+}

@@ -1,4 +1,5 @@
-import 'package:cinemapedia/core/service/dependecies_service.dart';
+import 'package:cinemapedia/core/service/dependecies_services.dart';
+import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/generic_failure_widget.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
 import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    _bloc.add(ActionGetMovies(page: 1));
+    _bloc.add(ActionGetMovies(NoParams()));
   }
 
   @override

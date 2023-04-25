@@ -9,12 +9,9 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 Future<void> setup() async {
-  getIt.registerLazySingleton<HttpServiceBase>(
-    () => HttpService(),
-  );
+  getIt.registerLazySingleton<HttpServiceBase>(() => HttpService());
 
   //Movie
-
   getIt.registerLazySingleton<MovieRemoteDataSourceBase>(
     () => MovieRemoteDataSource(http: getIt()),
   );
@@ -24,7 +21,8 @@ Future<void> setup() async {
   getIt.registerLazySingleton<GetNowMoviePlayingUseCase>(
     () => GetNowMoviePlayingUseCase(repository: getIt()),
   );
+
   getIt.registerLazySingleton<MovieBloc>(
-    () => MovieBloc(getNowMoviePlaying: getIt()),
+    () => MovieBloc(getNowMoviePlaying: getIt(), getPopularMovie: getIt()),
   );
 }

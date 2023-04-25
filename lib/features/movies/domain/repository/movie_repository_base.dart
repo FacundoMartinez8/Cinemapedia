@@ -7,5 +7,6 @@ abstract class MovieRepositoryBase {
   final MovieRemoteDataSourceBase remote;
 
   MovieRepositoryBase({required this.remote});
-  Future<Either<Failure, List<Movie>>> getNowMoviePlaying(int);
+  Future<Either<Failure, List<Movie>>> getNowMoviePlaying();
+  Future<Either<Failure, List<Movie>>> getPopularMovie();
 }
