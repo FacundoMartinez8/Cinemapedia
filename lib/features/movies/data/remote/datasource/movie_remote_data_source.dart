@@ -1,6 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:cinemapedia/core/service/http_service.dart';
 import 'package:cinemapedia/features/movies/data/remote/models/movie_model.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
+import 'package:cinemapedia/features/movies/domain/usecase/get_top_rated_use_case.dart';
+import 'package:cinemapedia/features/movies/domain/usecase/get_upcoming_use_case.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class MovieRemoteDataSourceBase {
@@ -8,8 +12,10 @@ abstract class MovieRemoteDataSourceBase {
 
   MovieRemoteDataSourceBase({required this.http});
 
-  Future<List<Movie>> getMovieNowPlaying(int);
+  Future<List<Movie>> getMovieNowPlaying();
   Future<List<Movie>> getPopularMovie();
+  Future<List<Movie>> getTopRated();
+  Future<List<Movie>> getUpcoming();
 }
 
 class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
@@ -20,15 +26,20 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
   String language = '&language=es-MX';
 
   @override
-  Future<List<Movie>> getMovieNowPlaying(int) async {
+  Future<List<Movie>> getMovieNowPlaying() async {
     print('pasa');
 
     final result = await http.get(
-      url: '$baseUrl/movie/now_playing?api_key=$API_KEY$language',
+      url:
+          'https://api.themoviedb.org/3/movie/now_playing?api_key=47728022501f30daa62f7eaf9fccf92d&language=es-MX',
     );
-    print('no pasa');
+
     print(result);
-    return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
+
+    final List<dynamic> moviesList = result['results'];
+    return moviesList
+        .map((movieJson) => MovieModel.fromJson(movieJson))
+        .toList();
   }
 
   @override
@@ -36,6 +47,24 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
     //https://api.themoviedb.org/3/movie/popular?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1
     final result = await http.get(
       url: '$baseUrl/movie/popular?api_key=$API_KEY$language',
+    );
+    return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
+  }
+
+  @override
+  Future<List<Movie>> getTopRated() async {
+    final result = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/top_rated?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1',
+    );
+    return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
+  }
+
+  @override
+  Future<List<Movie>> getUpcoming() async {
+    final result = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/upcoming?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1',
     );
     return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
   }

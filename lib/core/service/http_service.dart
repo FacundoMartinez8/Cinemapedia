@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cinemapedia/core/utils/entity.dart';
+import 'package:http/http.dart' as http;
 
 abstract class HttpServiceBase {
   Future<Map> get({required String url});
@@ -8,9 +11,10 @@ abstract class HttpServiceBase {
 
 class HttpService extends HttpServiceBase {
   @override
-  Future<Map> get({required String url}) {
-    // TODO: implement get
-    throw UnimplementedError();
+  Future<Map> get({required String url}) async {
+    final response = await http.get(Uri.parse(url));
+    final body = json.decode(response.body);
+    return body as Map<String, dynamic>;
   }
 
   @override

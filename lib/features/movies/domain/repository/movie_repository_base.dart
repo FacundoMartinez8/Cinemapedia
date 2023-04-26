@@ -1,6 +1,8 @@
 import 'package:cinemapedia/core/failures/failure.dart';
 import 'package:cinemapedia/features/movies/data/remote/datasource/movie_remote_data_source.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
+import 'package:cinemapedia/features/movies/domain/usecase/get_top_rated_use_case.dart';
+import 'package:cinemapedia/features/movies/domain/usecase/get_upcoming_use_case.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class MovieRepositoryBase {
@@ -9,4 +11,6 @@ abstract class MovieRepositoryBase {
   MovieRepositoryBase({required this.remote});
   Future<Either<Failure, List<Movie>>> getNowMoviePlaying();
   Future<Either<Failure, List<Movie>>> getPopularMovie();
+  Future<Either<Failure, List<Movie>>> getTopRated();
+  Future<Either<Failure, List<Movie>>> getUpcoming();
 }

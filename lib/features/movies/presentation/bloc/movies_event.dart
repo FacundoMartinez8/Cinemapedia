@@ -16,3 +16,17 @@ class ActionGetPopularMovies extends MovieEvent {
     this.noParams,
   );
 }
+
+class ActionGetTopRated extends MovieEvent {
+  final NoParams noParams;
+  ActionGetTopRated(
+    this.noParams,
+  );
+}
+
+class ActionGetUpcoming extends MovieEvent {
+  final NoParams noParams;
+  ActionGetUpcoming(
+    this.noParams,
+  );
+}

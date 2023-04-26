@@ -1,4 +1,3 @@
-import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:cinemapedia/core/failures/failure.dart';
 import 'package:cinemapedia/features/movies/domain/repository/movie_repository_base.dart';
@@ -11,7 +10,7 @@ class MovieRepository extends MovieRepositoryBase {
   Future<Either<Failure, List<Movie>>> getNowMoviePlaying() async {
     try {
       return Right(
-        await remote.getMovieNowPlaying(NoParams()),
+        await remote.getMovieNowPlaying(),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
@@ -27,6 +26,36 @@ class MovieRepository extends MovieRepositoryBase {
     try {
       return Right(
         await remote.getPopularMovie(),
+      );
+    } catch (e) {
+      if (e is Failure) return Left(e);
+
+      return Left(
+        UnhandledFailure(message: '$e'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getTopRated() async {
+    try {
+      return Right(
+        await remote.getTopRated(),
+      );
+    } catch (e) {
+      if (e is Failure) return Left(e);
+
+      return Left(
+        UnhandledFailure(message: '$e'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getUpcoming() async {
+    try {
+      return Right(
+        await remote.getUpcoming(),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
