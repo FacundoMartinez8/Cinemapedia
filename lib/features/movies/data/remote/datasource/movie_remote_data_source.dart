@@ -3,8 +3,6 @@
 import 'package:cinemapedia/core/service/http_service.dart';
 import 'package:cinemapedia/features/movies/data/remote/models/movie_model.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
-import 'package:cinemapedia/features/movies/domain/usecase/get_top_rated_use_case.dart';
-import 'package:cinemapedia/features/movies/domain/usecase/get_upcoming_use_case.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 abstract class MovieRemoteDataSourceBase {
@@ -12,7 +10,7 @@ abstract class MovieRemoteDataSourceBase {
 
   MovieRemoteDataSourceBase({required this.http});
 
-  Future<List<Movie>> getMovieNowPlaying();
+  Future<List<MovieModel>> getMovieNowPlaying();
   Future<List<Movie>> getPopularMovie();
   Future<List<Movie>> getTopRated();
   Future<List<Movie>> getUpcoming();
@@ -26,7 +24,7 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
   String language = '&language=es-MX';
 
   @override
-  Future<List<Movie>> getMovieNowPlaying() async {
+  Future<List<MovieModel>> getMovieNowPlaying() async {
     print('pasa');
 
     final result = await http.get(
@@ -37,13 +35,13 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
     print(result);
 
     final List<dynamic> moviesList = result['results'];
-    return moviesList
-        .map((movieJson) => MovieModel.fromJson(movieJson))
-        .toList();
+    final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
+    print(pp);
+    return pp;
   }
 
   @override
-  Future<List<Movie>> getPopularMovie() async {
+  Future<List<MovieModel>> getPopularMovie() async {
     //https://api.themoviedb.org/3/movie/popular?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1
     final result = await http.get(
       url: '$baseUrl/movie/popular?api_key=$API_KEY$language',

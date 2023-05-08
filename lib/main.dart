@@ -1,8 +1,5 @@
 import 'package:cinemapedia/core/Routes/app_routes.dart';
-import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
-import 'package:cinemapedia/features/movies/domain/usecase/get_now_playing_use_case.dart';
-import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
-import 'package:cinemapedia/features/movies/presentation/pages/home_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/service/dependecies_services.dart' as di;
