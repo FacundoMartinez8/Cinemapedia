@@ -1,6 +1,7 @@
 import 'package:cinemapedia/core/service/dependecies_services.dart';
 import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/custom_app_bar_widget.dart';
+import 'package:cinemapedia/core/widgets/custom_navigator_bar_widget.dart';
 import 'package:cinemapedia/core/widgets/generic_failure_widget.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
 import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
@@ -21,6 +22,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(children: [const CustomAppBar(), MovieSlideShows()]));
+      body: Column(children: [
+        const CustomAppBar(),
+        MovieSlideShows(),
+      ]),
+      bottomNavigationBar: MyCustomNavigationBar(),
+    );
   }
 }

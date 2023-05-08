@@ -29,19 +29,10 @@ Future<void> setup() async {
   );
 
   getIt.registerLazySingleton<GetTopRated>(
-<<<<<<< HEAD
-    () => GetTopRated(repository: getIt()),
-  );
-
-  getIt.registerLazySingleton<GetUpcoming>(
-    () => GetUpcoming(repository: getIt()),
-  );
-=======
       () => GetTopRated(repository: getIt()));
 
   getIt.registerLazySingleton<GetUpcoming>(
       () => GetUpcoming(repository: getIt()));
->>>>>>> d60180af8ef70506666a8d4dce2f39a36a2886b6
 
   getIt.registerLazySingleton<MovieBloc>(
     () => MovieBloc(

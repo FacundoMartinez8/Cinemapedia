@@ -38,7 +38,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     Emitter<MovieState> emit,
   ) async {
     emit(OnLoadingMovie());
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 100));
 
     final result = await getNowMoviePlaying(event.noParams);
     print(result);

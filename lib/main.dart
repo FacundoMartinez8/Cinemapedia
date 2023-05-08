@@ -1,6 +1,8 @@
 import 'package:cinemapedia/core/Routes/app_routes.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/service/dependecies_services.dart' as di;
 

@@ -1,4 +1,6 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cinemapedia/core/Theme/app_theme.dart';
 import 'package:cinemapedia/core/service/dependecies_services.dart';
 import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
@@ -26,7 +28,7 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 200,
+        height: 250,
         child: BlocConsumer<MovieBloc, MovieState>(
             bloc: _bloc,
             listener: (context, state) {},
@@ -34,8 +36,12 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
               if (state is OnLoadingMovie) {
                 return const LoadingWidget();
               } else if (state is OnLoaderMovies) {
-                final movies = state.movies;
+                final movies = state.movies.sublist(1, 8);
                 return Swiper(
+                  pagination: SwiperPagination(
+                      margin: EdgeInsets.only(top: 0),
+                      builder: DotSwiperPaginationBuilder(
+                          activeColor: Colors.blue[900], color: Colors.grey)),
                   viewportFraction: 0.8,
                   scale: 0.9,
                   autoplay: true,
@@ -61,22 +67,48 @@ class _Slider extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20, top: 10),
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
-              spreadRadius: 5,
-              blurRadius: 7,
+              color: Colors.black.withOpacity(0.7),
+              spreadRadius: 4,
+              blurRadius: 10,
               offset: Offset(0, 5),
             ),
           ],
         ),
-        child: Image.network(
-            'https://image.tmdb.org/t/p/w500${movie.backdropPath}'),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            color: Colors.white, // Añade un color de fondo
+            child: Image.network(
+              'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress != null) {
+                  return DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.7),
+                          spreadRadius: 4,
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+                return FadeIn(child: child);
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
