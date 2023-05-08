@@ -10,7 +10,7 @@ class MovieRepository extends MovieRepositoryBase {
   Future<Either<Failure, List<Movie>>> getNowMoviePlaying() async {
     try {
       return Right(
-        await remote.getMovieNowPlaying(),
+        await remote.getMovieNowPlaying(int),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
@@ -25,7 +25,7 @@ class MovieRepository extends MovieRepositoryBase {
   Future<Either<Failure, List<Movie>>> getPopularMovie() async {
     try {
       return Right(
-        await remote.getPopularMovie(),
+        await remote.getPopularMovie(int),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
@@ -40,7 +40,7 @@ class MovieRepository extends MovieRepositoryBase {
   Future<Either<Failure, List<Movie>>> getTopRated() async {
     try {
       return Right(
-        await remote.getTopRated(),
+        await remote.getTopRated(int),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
@@ -55,7 +55,7 @@ class MovieRepository extends MovieRepositoryBase {
   Future<Either<Failure, List<Movie>>> getUpcoming() async {
     try {
       return Right(
-        await remote.getUpcoming(),
+        await remote.getUpcoming(int),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
