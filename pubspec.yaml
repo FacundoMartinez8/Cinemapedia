@@ -41,6 +41,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_bloc: ^8.1.2
   get_it: ^7.2.0
+  card_swiper: ^2.0.4
 
 dev_dependencies:
   flutter_test:

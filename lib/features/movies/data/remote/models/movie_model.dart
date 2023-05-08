@@ -22,16 +22,14 @@ class MovieModel extends Movie {
 
     return MovieModel(
       adult: map['adult'] ?? false,
-      backdropPath: map['imagePath/backdrop_path'] ?? '',
-      genreIds: map['genre_ids'] != null
-          ? List<int>.from(map['genre_ids'].map((x) => x))
-          : [],
+      backdropPath: map['backdrop_path'] ?? '',
+      genreIds: List<int>.from(map['genre_ids'].map((x) => x)),
       id: map['id'] ?? 0,
       originalLanguage: map['original_language'] ?? '',
       originalTitle: map['original_title'] ?? '',
       overview: map['overview'] ?? '',
       popularity: (map['popularity'] ?? 0.0).toDouble(),
-      posterPath: map['imagePath/poster_path'] ?? '',
+      posterPath: map['poster_path'] ?? '',
       releaseDate: map['release_date'] ?? '',
       title: map['title'] ?? '',
       video: map['video'] ?? false,

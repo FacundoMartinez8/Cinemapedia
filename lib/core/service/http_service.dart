@@ -11,10 +11,9 @@ abstract class HttpServiceBase {
 
 class HttpService extends HttpServiceBase {
   @override
-  Future<Map> get({required String url}) async {
-    final response = await http.get(Uri.parse(url));
-    final body = json.decode(response.body);
-    return body as Map<String, dynamic>;
+  Future<Map> get({required String url, Map<String, String>? headers}) async {
+    var result = await http.get(Uri.parse(url), headers: headers);
+    return jsonDecode(result.body);
   }
 
   @override
