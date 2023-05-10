@@ -25,26 +25,27 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
   Future<List<MovieModel>> getMovieNowPlaying() async {
     print('pasa');
 
-    final result = await http.get(
+    final resultNow = await http.get(
       url:
           'https://api.themoviedb.org/3/movie/now_playing?api_key=47728022501f30daa62f7eaf9fccf92d&language=es-MX',
     );
 
-    print(result);
+    final List<dynamic> moviesList = resultNow['results'];
+    final pi = moviesList.map((a) => MovieModel.fromJson(a)).toList();
 
-    final List<dynamic> moviesList = result['results'];
-    final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
-    print(pp);
-    return pp;
+    return pi;
   }
 
   @override
   Future<List<MovieModel>> getPopularMovie() async {
     //https://api.themoviedb.org/3/movie/popular?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1
-    final result = await http.get(
-      url: '$baseUrl/movie/popular?api_key=$API_KEY$language',
+    final resultPop = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/popular?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1',
     );
-    return result['results'].map<Movie>((a) => MovieModel.fromJson(a)).toList();
+    final List<dynamic> moviesList = resultPop['results'];
+    final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
+    return pp;
   }
 
   @override

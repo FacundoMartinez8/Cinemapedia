@@ -1,6 +1,7 @@
 import 'package:cinemapedia/core/service/dependecies_services.dart';
 import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/list_view_horizontal_widget.dart';
+import 'package:cinemapedia/core/widgets/loading_widget.dart';
 import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,10 +19,32 @@ class _ListViewHorizontalPopularState extends State<ListViewHorizontalPopular> {
   @override
   void initState() {
     super.initState();
-    _bloc.add(ActionGetMovies(NoParams()));
+    _bloc.add(ActionGetPopularMovies(NoParams()));
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(builder: builder, listener: listener)
+    return Container(
+      // color: Colors.amberAccent,
+      // height: 350,
+      // width: double.infinity,
+      child: BlocConsumer<MovieBloc, MovieState>(
+          bloc: _bloc,
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is OnLoadingMovie) {
+              return const LoadingWidget();
+            } else if (state is OnLoaderPopularMovies) {
+              final movie = state.movies;
+              return ListViewHorizontal(
+                movies: state.movies,
+                title: 'En cines',
+                moviesLentgh: movie.length,
+              );
+            }
+            return Text('no funca hno');
+            //
+          }),
+    );
   }
 }
