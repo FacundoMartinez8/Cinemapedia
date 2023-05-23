@@ -6,14 +6,13 @@ import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:cinemapedia/features/movies/domain/repository/movie_repository_base.dart';
 import 'package:dartz/dartz.dart';
 
-class GetNowMoviePlayingUseCase
-    extends UseCaseBase<List<MovieModel>, NoParams> {
+class GetNowMoviePlayingUseCase extends UseCaseBase<List<Movie>, NoParams> {
   final MovieRepositoryBase repository;
 
   GetNowMoviePlayingUseCase({required this.repository});
 
   @override
-  Future<Either<Failure, List<MovieModel>>> call(NoParams NoParams) {
+  Future<Either<Failure, List<Movie>>> call(NoParams NoParams) {
     return repository.getNowMoviePlaying();
   }
 }

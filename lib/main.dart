@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/service/dependecies_services.dart' as di;
 
 import 'core/Theme/app_theme.dart';
-import 'core/service/dependecies_services.dart';
 
 Future<void> main() async {
   await di.setup();

@@ -7,6 +7,8 @@ import 'package:cinemapedia/features/movies/domain/usecase/get_popular_movie_use
 import 'package:cinemapedia/features/movies/domain/usecase/get_top_rated_use_case.dart';
 import 'package:cinemapedia/features/movies/domain/usecase/get_upcoming_use_case.dart';
 import 'package:cinemapedia/features/movies/presentation/bloc/movies_bloc.dart';
+import 'package:cinemapedia/features/movies/presentation/bloc/movies_now_bloc.dart/movie_bloc.dart';
+import 'package:cinemapedia/features/movies/presentation/bloc/movies_popular_bloc.dart/movie_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -34,12 +36,14 @@ Future<void> setup() async {
   getIt.registerLazySingleton<GetUpcoming>(
       () => GetUpcoming(repository: getIt()));
 
-  getIt.registerLazySingleton<MovieBloc>(
-    () => MovieBloc(
+  getIt.registerLazySingleton<MovieNowBloc>(
+    () => MovieNowBloc(
       getNowMoviePlaying: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<MoviePopularBloc>(
+    () => MoviePopularBloc(
       getPopularMovie: getIt(),
-      getTopRated: getIt(),
-      getUpcoming: getIt(),
     ),
   );
 }

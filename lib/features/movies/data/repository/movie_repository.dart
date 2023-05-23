@@ -8,7 +8,7 @@ class MovieRepository extends MovieRepositoryBase {
   MovieRepository({required super.remote});
 
   @override
-  Future<Either<Failure, List<MovieModel>>> getNowMoviePlaying() async {
+  Future<Either<Failure, List<Movie>>> getNowMoviePlaying() async {
     try {
       return Right(
         await remote.getMovieNowPlaying(),

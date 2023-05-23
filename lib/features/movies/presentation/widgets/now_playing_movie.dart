@@ -5,10 +5,9 @@ import 'package:cinemapedia/core/service/dependecies_services.dart';
 import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
+import 'package:cinemapedia/features/movies/presentation/bloc/movies_now_bloc.dart/movie_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/movies_bloc.dart';
 
 class MovieSlideShows extends StatefulWidget {
   MovieSlideShows({super.key});
@@ -18,18 +17,19 @@ class MovieSlideShows extends StatefulWidget {
 }
 
 class _MovieSlideShowsState extends State<MovieSlideShows> {
-  final _bloc = getIt<MovieBloc>();
+  final _bloc = getIt<MovieNowBloc>();
   @override
   void initState() {
-    super.initState();
     _bloc.add(ActionGetMovies(NoParams()));
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: 250,
-        child: BlocConsumer<MovieBloc, MovieState>(
+        child: BlocConsumer<MovieNowBloc, MovieState>(
             bloc: _bloc,
             listener: (context, state) {},
             builder: (context, state) {
@@ -37,6 +37,7 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
                 return const LoadingWidget();
               } else if (state is OnLoaderMovies) {
                 final movies = state.movies.sublist(1, 8);
+
                 return Swiper(
                   pagination: SwiperPagination(
                       margin: EdgeInsets.only(top: 0),

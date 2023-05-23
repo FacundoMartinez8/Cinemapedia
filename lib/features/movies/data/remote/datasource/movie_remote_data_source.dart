@@ -8,7 +8,7 @@ abstract class MovieRemoteDataSourceBase {
 
   MovieRemoteDataSourceBase({required this.http});
 
-  Future<List<MovieModel>> getMovieNowPlaying();
+  Future<List<Movie>> getMovieNowPlaying();
   Future<List<Movie>> getPopularMovie();
   Future<List<Movie>> getTopRated();
   Future<List<Movie>> getUpcoming();
@@ -22,9 +22,7 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
   String language = '&language=es-MX';
 
   @override
-  Future<List<MovieModel>> getMovieNowPlaying() async {
-    print('pasa');
-
+  Future<List<Movie>> getMovieNowPlaying() async {
     final resultNow = await http.get(
       url:
           'https://api.themoviedb.org/3/movie/now_playing?api_key=47728022501f30daa62f7eaf9fccf92d&language=es-MX',
