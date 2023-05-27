@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 
@@ -48,8 +49,11 @@ class ListViewHorizontal extends StatelessWidget {
               itemCount: moviesLentgh,
               physics: BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return _slide(
-                  movie: movies[index],
+                return FadeInRight(
+                  duration: Duration(seconds: 1),
+                  child: _slide(
+                    movie: movies[index],
+                  ),
                 );
               },
             ),

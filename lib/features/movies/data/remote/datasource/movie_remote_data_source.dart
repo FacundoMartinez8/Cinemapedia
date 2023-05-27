@@ -1,4 +1,5 @@
 import 'package:cinemapedia/core/service/http_service.dart';
+import 'package:cinemapedia/features/movies/data/remote/models/movie_details.dart';
 import 'package:cinemapedia/features/movies/data/remote/models/movie_model.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -12,6 +13,7 @@ abstract class MovieRemoteDataSourceBase {
   Future<List<Movie>> getPopularMovie();
   Future<List<Movie>> getTopRated();
   Future<List<Movie>> getUpcoming();
+  Future<MovieDetails> getMovieById(int id);
 }
 
 class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
@@ -30,7 +32,6 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
 
     final List<dynamic> moviesList = resultNow['results'];
     final pi = moviesList.map((a) => MovieModel.fromJson(a)).toList();
-
     return pi;
   }
 
@@ -47,14 +48,41 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
   }
 
   @override
-  Future<List<Movie>> getTopRated() {
-    // TODO: implement getTopRated
-    throw UnimplementedError();
+  Future<List<Movie>> getTopRated() async {
+    final resultPop = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/top_rated?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1',
+    );
+    final List<dynamic> moviesList = resultPop['results'];
+    final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
+    return pp;
   }
 
   @override
-  Future<List<Movie>> getUpcoming() {
-    // TODO: implement getUpcoming
-    throw UnimplementedError();
+  Future<List<Movie>> getUpcoming() async {
+    final resultPop = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/upcoming?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-US&page=1',
+    );
+    final List<dynamic> moviesList = resultPop['results'];
+    final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
+    return pp;
+  }
+
+  @override
+  Future<MovieDetails> getMovieById(id) async {
+    final Map result = await http.get(
+      url:
+          'https://api.themoviedb.org/3/movie/$id?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-MX',
+    );
+    print(id);
+    print(result);
+    final movieDetails = MovieDetails.fromJson(result);
+    print(movieDetails);
+    return movieDetails;
+
+    // final List<dynamic> moviesList = resultPop['results'];
+    // final pp = moviesList.map((a) => MovieModel.fromJson(a)).toList();
+    // return pp;
   }
 }

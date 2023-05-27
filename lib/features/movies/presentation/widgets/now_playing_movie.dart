@@ -2,12 +2,16 @@ import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cinemapedia/core/Theme/app_theme.dart';
 import 'package:cinemapedia/core/service/dependecies_services.dart';
+import 'package:cinemapedia/core/service/preferences_services.dart';
 import 'package:cinemapedia/core/use_case/no_params.dart';
 import 'package:cinemapedia/core/widgets/loading_widget.dart';
+import 'package:cinemapedia/features/movies/data/remote/models/movie_model.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
-import 'package:cinemapedia/features/movies/presentation/bloc/movies_now_bloc.dart/movie_bloc.dart';
+import 'package:cinemapedia/features/movies/presentation/bloc/movies_now_bloc/movie_bloc.dart';
+import 'package:cinemapedia/features/movies/presentation/pages/details_movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieSlideShows extends StatefulWidget {
   MovieSlideShows({super.key});
@@ -37,7 +41,11 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
                 return const LoadingWidget();
               } else if (state is OnLoaderMovies) {
                 final movies = state.movies.sublist(1, 8);
-
+                SharedPreferencesHelper.saveMovies(movies as List<MovieModel>);
+                final peliculasCache =
+                    SharedPreferencesHelper.getCachedMovies();
+                print('peliculas en cache');
+                print(peliculasCache);
                 return Swiper(
                   pagination: SwiperPagination(
                       margin: EdgeInsets.only(top: 0),
@@ -48,7 +56,13 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
                   autoplay: true,
                   itemCount: movies.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return _Slider(movie: movies[index]);
+                    int idMovie = movies[index].id;
+                    return FadeInDownBig(
+                        child: GestureDetector(
+                            onTap: () => GoRouter.of(context).pushNamed(
+                                MovieDetailsWidget.name,
+                                params: {'movieId': '$idMovie'}),
+                            child: _Slider(movie: movies[index])));
                   },
                 );
               } else if (state is OnFaileruMovie) {

@@ -21,6 +21,7 @@ class MovieNowBloc extends Bloc<MovieEvent, MovieState> {
   ) async {
     emit(OnLoadingMovie());
     final result = await getNowMoviePlaying(event.noParams);
+    //print(result);
     result.fold((l) => emit(OnFaileruMovie(failure: l)),
         (r) => emit(OnLoaderMovies(movies: r)));
   }

@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SizedBox(
-          width: double.infinity,
-          //height: 30,
-          child: Row(children: const [
+        padding: const EdgeInsets.only(right: 30),
+        child: Row(
+          children: const [
             Icon(
               Icons.movie_creation_outlined,
               color: Colors.blue,
+              size: 28,
             ),
-            SizedBox(width: 5),
+            SizedBox(width: 40),
             Text(
               'Cinemapedia',
-              style: TextStyle(fontSize: 17, fontFamily: 'Poppins'),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                color: Colors.black87,
+              ),
             ),
-            Spacer(),
-            Icon(Icons.search)
-          ]),
+            const Spacer(),
+            Icon(
+              Icons.search,
+              color: Colors.black87,
+              size: 28,
+            ),
+          ],
         ),
       ),
     );

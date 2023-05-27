@@ -1,3 +1,4 @@
+import 'package:cinemapedia/features/movies/data/remote/models/movie_details.dart';
 import 'package:cinemapedia/features/movies/data/remote/models/movie_model.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
 import 'package:cinemapedia/core/failures/failure.dart';
@@ -57,6 +58,21 @@ class MovieRepository extends MovieRepositoryBase {
     try {
       return Right(
         await remote.getUpcoming(),
+      );
+    } catch (e) {
+      if (e is Failure) return Left(e);
+
+      return Left(
+        UnhandledFailure(message: '$e'),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, MovieDetails>> getMovieById({int? id}) async {
+    try {
+      return Right(
+        await remote.getMovieById(id!),
       );
     } catch (e) {
       if (e is Failure) return Left(e);
