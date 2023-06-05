@@ -42,10 +42,10 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
               } else if (state is OnLoaderMovies) {
                 final movies = state.movies.sublist(1, 8);
                 SharedPreferencesHelper.saveMovies(movies as List<MovieModel>);
-                final peliculasCache =
-                    SharedPreferencesHelper.getCachedMovies();
-                print('peliculas en cache');
-                print(peliculasCache);
+
+                SharedPreferencesHelper.getCachedMovies();
+                print('peliculas');
+                print(movies);
                 return Swiper(
                   pagination: SwiperPagination(
                       margin: EdgeInsets.only(top: 0),
@@ -57,12 +57,14 @@ class _MovieSlideShowsState extends State<MovieSlideShows> {
                   itemCount: movies.length,
                   itemBuilder: (BuildContext context, int index) {
                     int idMovie = movies[index].id;
+                    Movie movie = movies[index];
                     return FadeInDownBig(
                         child: GestureDetector(
-                            onTap: () => GoRouter.of(context).pushNamed(
-                                MovieDetailsWidget.name,
-                                params: {'movieId': '$idMovie'}),
-                            child: _Slider(movie: movies[index])));
+                      onTap: () => Navigator.pushNamed(
+                          context, MovieDetailsWidget.name,
+                          arguments: idMovie),
+                      child: _Slider(movie: movie),
+                    ));
                   },
                 );
               } else if (state is OnFaileruMovie) {

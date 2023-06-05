@@ -71,12 +71,12 @@ class MovieRemoteDataSource extends MovieRemoteDataSourceBase {
 
   @override
   Future<MovieDetails> getMovieById(id) async {
+    print(id);
     final Map result = await http.get(
       url:
           'https://api.themoviedb.org/3/movie/$id?api_key=47728022501f30daa62f7eaf9fccf92d&language=en-MX',
     );
-    print(id);
-    print(result);
+
     final movieDetails = MovieDetails.fromJson(result);
     print(movieDetails);
     return movieDetails;

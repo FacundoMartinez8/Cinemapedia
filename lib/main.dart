@@ -1,8 +1,8 @@
-import 'package:cinemapedia/core/Routes/app_routes.dart';
 import 'package:cinemapedia/core/service/preferences_services.dart';
+import 'package:cinemapedia/features/movies/presentation/pages/details_movie.dart';
+import 'package:cinemapedia/features/movies/presentation/pages/home_page.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/service/dependecies_services.dart' as di;
@@ -10,7 +10,7 @@ import 'core/service/dependecies_services.dart' as di;
 import 'core/Theme/app_theme.dart';
 
 Future<void> main() async {
-  //WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   await SharedPreferencesHelper.initialize();
 
@@ -24,9 +24,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routerConfig: appRouter,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/movie-details': (context) {
+          final movieId = ModalRoute.of(context)!.settings.arguments;
+          return MovieDetailsWidget(movieId: movieId as int);
+        },
+      },
       title: 'Cinemapedia',
       theme: AppTheme().getTheme(),
     );

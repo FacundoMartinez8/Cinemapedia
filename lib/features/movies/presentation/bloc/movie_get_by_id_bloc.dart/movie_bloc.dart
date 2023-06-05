@@ -18,7 +18,7 @@ class MovieGetByIdBloc extends Bloc<MovieEvent, MovieState> {
   ) async {
     emit(OnLoadingMovie());
     final result = await getByIdUseCase(event.id);
-    print(result);
+    //print(result);
     result.fold(
       (l) => emit(OnFaileruGetByIdMovie(failure: l)),
       (r) => emit(OnLoaderGetByIdMovie(movie: r)),

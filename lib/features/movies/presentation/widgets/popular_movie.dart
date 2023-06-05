@@ -25,9 +25,6 @@ class _ListViewHorizontalPopularState extends State<ListViewHorizontalPopular> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.amberAccent,
-      // height: 350,
-      // width: double.infinity,
       child: BlocConsumer<MoviePopularBloc, MovieState>(
           bloc: _bloc,
           listener: (context, state) {},
@@ -43,7 +40,6 @@ class _ListViewHorizontalPopularState extends State<ListViewHorizontalPopular> {
               );
             }
             return Text('no funca hno');
-            //
           }),
     );
   }

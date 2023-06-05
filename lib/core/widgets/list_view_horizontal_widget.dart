@@ -1,14 +1,16 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/features/movies/domain/entities/movie.dart';
+import 'package:cinemapedia/features/movies/presentation/pages/details_movie.dart';
 import 'package:flutter/material.dart';
 
 class ListViewHorizontal extends StatelessWidget {
-  //final String imgMovie;
+  //final int idMovie;
   final String title;
   final int moviesLentgh;
   final List<Movie> movies;
   final VoidCallback? loadNetxPage;
   const ListViewHorizontal({
+    // required this.idMovie,
     required this.title,
     required this.movies,
     this.loadNetxPage,
@@ -52,6 +54,7 @@ class ListViewHorizontal extends StatelessWidget {
                 return FadeInRight(
                   duration: Duration(seconds: 1),
                   child: _slide(
+                    //idMovie: idMovie,
                     movie: movies[index],
                   ),
                 );
@@ -65,61 +68,70 @@ class ListViewHorizontal extends StatelessWidget {
 }
 
 class _slide extends StatelessWidget {
+  //final int idMovie;
   final Movie movie;
-  const _slide({super.key, required this.movie});
+  const _slide({
+    super.key,
+    required this.movie,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      //height: 200,
-      margin: EdgeInsets.symmetric(horizontal: 7),
-      width: 150,
-      // color: Colors.black45,
-      child: Column(
-        children: [
-          Container(
-            height: 220,
-            child: ClipRRect(
-                borderRadius: BorderRadiusDirectional.circular(20),
-                child: FadeInImage(
-                  placeholder:
-                      AssetImage('assets/pix-vertical-placeholder.jpg'),
-                  image: NetworkImage(
-                    'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-                  ),
-                  fit: BoxFit.cover,
-                  //width: 150,
-                  //height: 180,
-                )),
-          ),
-          //Text(movie.originalTitle, maxLines: 1),
-          Text(
-            movie.title,
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            width: 130,
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Icon(
-                Icons.star_half_outlined,
-                color: Colors.yellow[800],
-              ),
-              Text(
-                '${movie.voteAverage}',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, color: Colors.yellow[900]),
-              ),
-              Spacer(),
-              Text(
-                '${formatVoteCount(movie.voteCount)}',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              )
-            ]),
-          )
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, MovieDetailsWidget.name,
+          arguments: movie.id),
+      child: Container(
+        //height: 200,
+        margin: EdgeInsets.symmetric(horizontal: 7),
+        width: 150,
+        // color: Colors.black45,
+        child: Column(
+          children: [
+            Container(
+              height: 220,
+              child: ClipRRect(
+                  borderRadius: BorderRadiusDirectional.circular(20),
+                  child: FadeInImage(
+                    placeholder:
+                        AssetImage('assets/pix-vertical-placeholder.jpg'),
+                    image: NetworkImage(
+                      'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                    ),
+                    fit: BoxFit.cover,
+                    //width: 150,
+                    //height: 180,
+                  )),
+            ),
+            //Text(movie.originalTitle, maxLines: 1),
+            Text(
+              movie.title,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              width: 130,
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Icon(
+                  Icons.star_half_outlined,
+                  color: Colors.yellow[800],
+                ),
+                Text(
+                  '${movie.voteAverage}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.yellow[900]),
+                ),
+                Spacer(),
+                Text(
+                  '${formatVoteCount(movie.voteCount)}',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                )
+              ]),
+            )
+          ],
+        ),
       ),
     );
   }
